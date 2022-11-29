@@ -3,11 +3,23 @@
 #include<iostream>
 using namespace std;
 class Packet{
+protected:
+	int target=-1;
 public:
-	int infor=-1;
+	Packet(int target) {
+		this->target = target;
+	}
 	bool clear() {
-		infor = -1;
+		target = -1;
 		return true;
 	}
+	int getTarget() {
+		return target;
+	}
+	bool setTarget(int target) {
+		this->target = target;
+		return true;
+	}
+
 };
 

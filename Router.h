@@ -25,14 +25,18 @@ protected:
 		return true;
 	}
 public:
-	Router(int index, map<int, Router*> indexToPoints) {//无包初始化
+	Router(int index) {//无包初始化
 		this->index = index;
 		this->indexToPoints = indexToPoints;
 	}
-	Router(int index, map<int, Router*> indexToPoints,Packet packet) {//有包初始化
+	Router(int index,Packet packet) {//有包初始化
 		this->index = index;
 		this->indexToPoints = indexToPoints;
 		this->setPacket(packet);
+	}
+	bool initConnections(map<int, Router*> indexToPoints) {//初始化连接
+		this->indexToPoints = indexToPoints;
+		return true;
 	}
 
 	bool sendPacket(int target) {//发包：将包发给目标
