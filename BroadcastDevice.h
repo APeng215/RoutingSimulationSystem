@@ -15,5 +15,6 @@ public:
 	void sendBoradcastPacket(BroadcastDevice target,T packetToSend) {
 		target.recivePacket(packetToSend);
 	}
+
 };
 
