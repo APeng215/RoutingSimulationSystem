@@ -6,6 +6,9 @@ class Packet{
 protected:
 	int target=-1;
 public:
+	Packet() {
+		this->target = -1;
+	}
 	Packet(int target) {
 		this->target = target;
 	}
@@ -13,7 +16,7 @@ public:
 		target = -1;
 		return true;
 	}
-	int getTarget() {
+	int getTarget() const {
 		return target;
 	}
 	bool setTarget(int target) {

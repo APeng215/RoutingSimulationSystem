@@ -26,6 +26,15 @@
     <ClInclude Include="Packet.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BroadcastDevice.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleRouter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">

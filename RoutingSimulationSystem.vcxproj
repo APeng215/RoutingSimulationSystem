@@ -130,8 +130,11 @@
     <ClCompile Include="RoutingSimulationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BroadcastDevice.h" />
+    <ClInclude Include="ExampleRouter.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Router.h" />
+    <ClInclude Include="System.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />

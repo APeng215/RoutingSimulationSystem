@@ -24,18 +24,17 @@ protected:
 		ifIncludePacket = false;
 		return true;
 	}
+	
 public:
 	Router(int index) {//无包初始化
 		this->index = index;
-		this->indexToPoints = indexToPoints;
 	}
 	Router(int index,Packet packet) {//有包初始化
 		this->index = index;
-		this->indexToPoints = indexToPoints;
 		this->setPacket(packet);
 	}
-	bool initConnections(map<int, Router*> indexToPoints) {//初始化连接
-		this->indexToPoints = indexToPoints;
+	bool initConnections(map<int, Router*> indexToPoint) {//初始化连接
+		this->indexToPoints = indexToPoint;
 		return true;
 	}
 
@@ -58,7 +57,7 @@ public:
 		return false;
 	}
 	
-	Packet getPacket() {//返回包
+	Packet getPacket() const{//返回包
 		if (ifIncludePacket) {
 			return packet;
 		}
@@ -67,5 +66,10 @@ public:
 		}
 		
 	}
+	virtual void tick(void){}
+
+	
+
+	
 };
 
