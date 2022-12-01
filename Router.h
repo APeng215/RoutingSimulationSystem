@@ -3,22 +3,19 @@
 #include<iostream>
 #include<algorithm>
 #include<map>
+#include<cstdio>
 #include"Packet.h"
 using namespace std;
 class Router{
 protected:
 	map<int, Router*> indexToPoints;//编号转指针
-	int index;//路由编号
+	int index=-1;//路由编号
 	bool ifIncludePacket = false;//flag是否含有包。请勿直接操作
 	Packet packet;//含有的包
 
 
 
-	bool setPacket(Packet input) {//设置包
-		packet = input;
-		ifIncludePacket = true;
-		return true;
-	}
+	
 	bool deletePacket() {//删除包
 		packet.clear();
 		ifIncludePacket = false;
@@ -33,8 +30,8 @@ public:
 		this->index = index;
 		this->setPacket(packet);
 	}
-	bool initConnections(map<int, Router*> indexToPoint) {//初始化连接
-		this->indexToPoints = indexToPoint;
+	bool initConnections(map<int, Router*> indexToPoints) {//初始化连接
+		this->indexToPoints = indexToPoints;
 		return true;
 	}
 
@@ -47,7 +44,7 @@ public:
 		//如果自身有包，要确认目标是否存在，再发包
 		auto result = indexToPoints.find(target);
 		if (result != indexToPoints.end()) {
-			indexToPoints[target]->setPacket(packet);
+			(*result).second->setPacket(packet);
 			printf("包传递：%d-->%d\n", index, target);
 			this->deletePacket();
 			return true;
@@ -66,6 +63,15 @@ public:
 		}
 		
 	}
+	int getIndex() {
+		return index;
+	}
+	bool setPacket(Packet input) {//设置包
+		packet = input;
+		ifIncludePacket = true;
+		return true;
+	}
+	
 	virtual void tick(void){}
 
 	

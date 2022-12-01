@@ -19,6 +19,8 @@ int main(){
         }
     }
     System<ExampleRouter> system(matrix);
+    Packet packet;
+    system.givePacket(1, packet);
     system.tick();
 }
 

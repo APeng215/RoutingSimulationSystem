@@ -134,6 +134,7 @@
     <ClInclude Include="ExampleRouter.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Router.h" />
+    <ClInclude Include="RoutingSimulationSystem.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <ItemGroup>

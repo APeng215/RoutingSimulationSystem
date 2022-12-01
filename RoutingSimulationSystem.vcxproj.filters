@@ -35,6 +35,9 @@
     <ClInclude Include="ExampleRouter.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="RoutingSimulationSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">

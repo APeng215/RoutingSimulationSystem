@@ -8,27 +8,27 @@
 template <typename T>
 class System{
 protected:
-	vector<Router*> routers;
+	vector<T> routers;
 	vector<vector<int>> matrix;
 	int n;
 
 	void initRouters() {
 		for (int i = 0; i < n; i++) {
 			T temp(i);
-			routers.push_back(&temp);
+			routers.push_back(temp);
 		}
 	}
 	void initConnections(vector<vector<int>>& matrix)
 	{
 		for (int i = 0; i < n; i++) {
 			vector<int> row = matrix[i];
-			map<int, T*> tempMap;
+			map<int, Router*> tempMap;
 			for (int j = 0; j < n; j++) {
 				if (row[j] != 0) {
-					tempMap[j] = routers[j];
+					tempMap[j] = &routers[j];
 				}
 			}
-			routers[i]->initConnections(tempMap);
+			routers[i].initConnections(tempMap);
 		}
 	}
 	
@@ -42,11 +42,15 @@ public:
 	}
 	void tick() {
 		while (1) {
-			for (auto it : routers) {
-				it->tick();
+			for (auto &it : routers) {
+				it.tick();
+				Sleep(500);
 			}
-			Sleep(1000);
+			
 		}
+	}
+	void givePacket(int routerIndex, Packet packet) {
+		routers[routerIndex].setPacket(packet);
 	}
 };
 

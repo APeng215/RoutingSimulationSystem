@@ -7,7 +7,8 @@ public:
 	ExampleRouter(int a) :Router(a) {}
 	void tick() override {
 		if (this->ifIncludePacket) {
-			this->sendPacket(rand() * (this->indexToPoints.size()));
+			int randNum = rand() % (this->indexToPoints.size()+1);
+			this->sendPacket(randNum);
 		}
 	}
 };
