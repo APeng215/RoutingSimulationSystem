@@ -5,9 +5,9 @@
 #include<iostream>
 #include<fstream>
 using namespace std;
-int main(){
+void readMatrix(vector<vector<int>>& matrix)
+{
     ifstream in("data.txt");
-    vector<vector<int>> matrix;
     int temp;
     vector<int> tempVec;
     while (in >> temp) {
@@ -18,7 +18,11 @@ int main(){
             tempVec.clear();
         }
     }
-    System<ExampleRouter> system(matrix);
+}
+int main(){
+    vector<vector<int>> matrix;
+    readMatrix(matrix);
+    System<ExampleRouter,Packet> system(matrix);
     Packet packet;
     system.givePacket(1, packet);
     system.tick();

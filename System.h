@@ -5,7 +5,7 @@
 #include<map>
 #include"Router.h"
 #include<Windows.h>
-template <typename T>
+template <typename T,typename P>
 class System{
 protected:
 	vector<T> routers;
@@ -22,7 +22,7 @@ protected:
 	{
 		for (int i = 0; i < n; i++) {
 			vector<int> row = matrix[i];
-			map<int, Router*> tempMap;
+			map<int, Router<P>*> tempMap;
 			for (int j = 0; j < n; j++) {
 				if (row[j] != 0) {
 					tempMap[j] = &routers[j];

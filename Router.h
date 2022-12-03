@@ -6,19 +6,20 @@
 #include<cstdio>
 #include"Packet.h"
 using namespace std;
+template <typename T>
 class Router{
 protected:
 	map<int, Router*> indexToPoints;//编号转指针
 	int index=-1;//路由编号
-	bool ifIncludePacket = false;//flag是否含有包。请勿直接操作
-	Packet packet;//含有的包
-
+	bool isIncludePacket = false;//flag是否含有包。请勿直接操作
+	T packet;//含有的包
+	unsigned int timer = 0;
 
 
 	
 	bool deletePacket() {//删除包
 		packet.clear();
-		ifIncludePacket = false;
+		isIncludePacket = false;
 		return true;
 	}
 	
@@ -26,7 +27,7 @@ public:
 	Router(int index) {//无包初始化
 		this->index = index;
 	}
-	Router(int index,Packet packet) {//有包初始化
+	Router(int index, T &packet) {//有包初始化
 		this->index = index;
 		this->setPacket(packet);
 	}
@@ -37,7 +38,7 @@ public:
 
 	bool sendPacket(int target) {//发包：将包发给目标
 		//如果自身无包，则无法发送包，输出报错
-		if (!this->ifIncludePacket) {
+		if (!this->isIncludePacket) {
 			printf("错误：编号为%d的路由并不含有包，无法发包！\n", index);
 			return false;
 		}
@@ -54,8 +55,8 @@ public:
 		return false;
 	}
 	
-	Packet getPacket() const{//返回包
-		if (ifIncludePacket) {
+	T getPacket() const{//返回包
+		if (isIncludePacket) {
 			return packet;
 		}
 		else {//无包报错
@@ -68,7 +69,7 @@ public:
 	}
 	bool setPacket(Packet input) {//设置包
 		packet = input;
-		ifIncludePacket = true;
+		isIncludePacket = true;
 		return true;
 	}
 	
