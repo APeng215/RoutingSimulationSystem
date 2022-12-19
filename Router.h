@@ -68,7 +68,7 @@ public:
 	int getIndex() {
 		return index;
 	}
-	bool setPacket(Packet input) {//设置包
+	bool setPacket(T input) {//设置包
 		packet = input;
 		isIncludePacket = true;
 		return true;
