@@ -5,6 +5,7 @@
 #include<map>
 #include"Router.h"
 #include<Windows.h>
+//T为Router类，P为包类
 template <typename T,typename P>
 class System{
 protected:
@@ -40,6 +41,7 @@ public:
 		initConnections(matrix);
 		
 	}
+	//阻塞式
 	void tick() {
 		while (1) {
 			for (auto &it : routers) {

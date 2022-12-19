@@ -6,6 +6,7 @@
 #include<cstdio>
 #include"Packet.h"
 using namespace std;
+//T参数为Router所发送的包类
 template <typename T>
 class Router{
 protected:

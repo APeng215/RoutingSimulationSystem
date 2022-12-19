@@ -19,6 +19,9 @@
     <Filter Include="头文件\OSPF">
       <UniqueIdentifier>{2fdfb6df-5678-4faf-8212-3539a4dff500}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Example">
+      <UniqueIdentifier>{2f15848e-76ed-43c5-b020-b7e6aad2f623}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RoutingSimulationSystem.cpp">
@@ -38,14 +41,14 @@
     <ClInclude Include="System.h">
       <Filter>头文件\BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="ExampleRouter.h">
-      <Filter>头文件\OSPF</Filter>
-    </ClInclude>
     <ClInclude Include="LsaPacket.h">
       <Filter>头文件\OSPF</Filter>
     </ClInclude>
     <ClInclude Include="OspfRouter.h">
       <Filter>头文件\OSPF</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleRouter.h">
+      <Filter>头文件\Example</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
