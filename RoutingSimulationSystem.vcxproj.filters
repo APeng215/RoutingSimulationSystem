@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\BaseClass">
+      <UniqueIdentifier>{4573fdda-8b91-4c99-9316-27409b7c4cb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\OSPF">
+      <UniqueIdentifier>{2fdfb6df-5678-4faf-8212-3539a4dff500}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RoutingSimulationSystem.cpp">
@@ -20,26 +26,26 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BroadcastDevice.h">
+      <Filter>头文件\BaseClass</Filter>
+    </ClInclude>
     <ClInclude Include="Router.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="Packet.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="System.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="BroadcastDevice.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="ExampleRouter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="OspfRouter.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\OSPF</Filter>
     </ClInclude>
     <ClInclude Include="LsaPacket.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\OSPF</Filter>
+    </ClInclude>
+    <ClInclude Include="OspfRouter.h">
+      <Filter>头文件\OSPF</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

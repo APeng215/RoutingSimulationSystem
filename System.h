@@ -44,7 +44,7 @@ public:
 		while (1) {
 			for (auto &it : routers) {
 				it.tick();
-				Sleep(500);
+				Sleep(50);
 			}
 			
 		}
