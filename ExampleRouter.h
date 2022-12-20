@@ -2,7 +2,7 @@
 #include"Router.h"
 #include"BroadcastDevice.h"
 #include<random>
-class ExampleRouter:public Router<Packet>,public BroadcastDevice<int>{
+class ExampleRouter:public Router<Packet>,public BroadcastDevice<int, Router<Packet>>{
 public:
 	ExampleRouter(int a) :Router(a) {}
 	void tick() override {

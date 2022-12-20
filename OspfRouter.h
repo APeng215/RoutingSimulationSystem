@@ -28,7 +28,7 @@ public:
 		}
 		//如果发送LSA的周期到了
 		if (timer % 10 == 0) {
-			for (auto it : this->indexToPoints) {
+			for (auto &it : this->indexToPoints) {
 				this->sendBoradcastPacket(*it.second,)
 			}
 		}
