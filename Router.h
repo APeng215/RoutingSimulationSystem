@@ -65,6 +65,7 @@ public:
 		}
 		
 	}
+	//返回本路由器的下标
 	int getIndex() {
 		return index;
 	}
