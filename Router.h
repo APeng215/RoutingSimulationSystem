@@ -14,7 +14,7 @@ protected:
 	int index=-1;//路由编号
 	bool isIncludePacket = false;//flag是否含有包。请勿直接操作
 	T packet;//含有的包
-	unsigned int timer = 0;
+	unsigned int timer = 0;//时间计数器
 
 
 	

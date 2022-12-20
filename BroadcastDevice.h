@@ -1,6 +1,7 @@
 #pragma once
 #include"Router.h"
-template <typename T>
+//T为广播包类型，R为Router类型
+template <typename T,typename R>
 class BroadcastDevice{
 protected:
 	//用于存储收到的广播包
@@ -27,7 +28,7 @@ public:
 	
 	}
 	//发送广播包，第一个参数为目标，第二个参数为要发送的广播包
-	void sendBoradcastPacket(BroadcastDevice &target,T packetToSend) {
+	void sendBoradcastPacket(R &target,T packetToSend) {
 		target.recivePacket(packetToSend);
 	}
 	//销毁广播包

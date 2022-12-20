@@ -130,6 +130,7 @@
     <ClCompile Include="RoutingSimulationSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdList.h" />
     <ClInclude Include="BroadcastDevice.h" />
     <ClInclude Include="ExampleRouter.h" />
     <ClInclude Include="LsaPacket.h" />

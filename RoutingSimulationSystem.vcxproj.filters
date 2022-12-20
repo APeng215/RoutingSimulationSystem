@@ -50,6 +50,9 @@
     <ClInclude Include="ExampleRouter.h">
       <Filter>头文件\Example</Filter>
     </ClInclude>
+    <ClInclude Include="AdList.h">
+      <Filter>头文件\OSPF</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">
