@@ -5,6 +5,8 @@
 #include"AdList.h"
 #include<iostream>
 #include<fstream>
+#include"OspfRouter.h"
+#include"PathPacket.h"
 using namespace std;
 void readMatrix(vector<vector<int>>& matrix)
 {
@@ -21,8 +23,10 @@ void readMatrix(vector<vector<int>>& matrix)
     }
 }
 int main(){
+    
     vector<vector<int>> matrix;
     readMatrix(matrix);
+    /*
     System<ExampleRouter,Packet> system(matrix);
     Packet packet;
     system.givePacket(1, packet);
@@ -31,6 +35,15 @@ int main(){
     testAdList.update(1, 2);
     testAdList.setSender(1);
     if(testAdList2.update(testAdList))cout<<"list2更新!\n";
+    */
+    System<OspfRouter, PathPacket> system(matrix);
+    PathPacket packet;
+    packet.setTarget(3);
+    system.givePacket(0, packet);
+    system.tick();
+
+
+
 }
 
 

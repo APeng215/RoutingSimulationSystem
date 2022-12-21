@@ -5,6 +5,7 @@
 #include<map>
 #include<cstdio>
 #include"Packet.h"
+#include"AdList.h"
 using namespace std;
 //T参数为Router所发送的包类
 template <typename T>
@@ -77,7 +78,7 @@ public:
 	
 	virtual void tick(void){}
 
-	
+	virtual void recivePacket(AdList packetToRecive) {}
 
 	
 };

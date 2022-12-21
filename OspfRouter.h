@@ -9,14 +9,50 @@
 #include"BroadcastDevice.h"
 #include"LsaPacket.h"
 #include"PathPacket.h"
-class OspfRouter:public Router<PathPacket>,public BroadcastDevice<AdList,Router<PathPacket>>{
+#include<set>
+class OspfRouter:public Router<PathPacket>{
 protected:
+	//用于存储收到的广播包
+	AdList recivedPacket;
+	//表示邮箱中是否有未解读的广播包
+	bool isIncludeRecivedPacket = false;
+
+
 	//本路由储存的LSA
 	AdList adList;
 	vector<int> contiguousRouters;
 
+	//**********************************************************************************************************
+	void recivePacket(AdList packetToRecive) override {
+		recivedPacket = packetToRecive;
+		isIncludeRecivedPacket = true;
+	}
+
+	//返回邮箱中是否有未解读的广播包
+	bool hasRecivedPacket() {
+		return isIncludeRecivedPacket;
+	}
+	//返回广播包，使用前请检查
+	AdList getRecivedPacket() {
+		if (isIncludeRecivedPacket) {
+			return recivedPacket;
+		}
+		else {
+			cout << "警告:并不含有recivePacket!请在get前检查!\n";
+		}
+
+	}
+	//发送广播包，第一个参数为目标，第二个参数为要发送的广播包
+	void sendBoradcastPacket(Router<PathPacket>* target, AdList packetToSend) {
+		target->recivePacket(packetToSend);
+	}
+	//销毁广播包
+	void deleteRecivedPacket() {
+		isIncludeRecivedPacket = false;
+	}
+	//************************************************************************************************************
 	//更新LSA，返回是否更新后的LAS是否有所变化
-	bool updateLSA(AdList receivedLSA) {
+	bool updateLSA(AdList receivedLSA) { 
 		return adList.update(receivedLSA);
 	}
 	//周期发LSA包
@@ -27,12 +63,66 @@ protected:
 			AdList LSAtoSend = this->adList;
 			LSAtoSend.setSender(this->getIndex());
 			//发送包
-			this->sendBoradcastPacket(*it.second, LSAtoSend);
+			this->sendBoradcastPacket(it.second, LSAtoSend);
 		}
 	}
 	//根据自己已知的AdList，找出最短路径
 	vector<int> Dijkstra(int target) {
-		//TODO
+		vector<int> path;
+		//如果LAS中没有节点的数据，返回空的vec
+		if (!this->adList.hasVertex(target)) return path;
+		//如果有节点的数据，则用算法寻找最短路径存入path
+		//set储存已经计算出最短路径的点
+		set<int> sptSet;
+		//dist储存点的目前最短路径
+		vector<int> dist(adList.maxVertex() * adList.maxVertex()+100, INT_MAX);
+		//parent储存点最短路径所需要的来自的parent
+		vector<int> parent(adList.maxVertex() * adList.maxVertex()+100, -1);
+		//令本节点的dist为0，因此本节点将会是第一个加入最小路径树的
+		dist[index] = 0;
+		parent[index] = index;
+		//如果sptSet大小与adlist不一致，说明还没遍历完
+		while (sptSet.size() < adList.size()) {
+			//用选择查找，寻找dist中最小的还未加入生成树
+			int minKey=-1;
+			int minDist = INT_MAX;
+			for (int i = 0; i < dist.size(); i++) {
+				auto it = sptSet.find(i);
+				//如果不在spt中，且其dist小,将key变成它
+				if (it == sptSet.end() && dist[i] < minDist) {
+					minKey = i;
+					minDist = dist[i];
+				}
+			}
+			if (minKey == -1) break;//如果没找到退出循环
+			//此时找到了minKey，将其加入spt并更新其邻居点的dist
+			sptSet.insert(minKey);
+			//如果目标加入了最短路径树，可以直接退出搜索
+			if (minKey == target) break;
+			//获得其邻接点
+			vector<int> nbList = adList.getNBlist(minKey);
+			//遍历更新邻接点的dist和parent
+			for (auto& it : nbList) {
+				auto find = sptSet.find(it);
+				//邻接点不在spt中且距离更小，且邻接点在adlist中，更新dist和parent
+				if (adList.hasVertex(it) && find == sptSet.end() && dist[minKey] + 1 < dist[it]) {
+					dist[it] = dist[minKey] + 1;
+					parent[it] = minKey;
+				}
+			}
+		}
+		//根据dist和parent寻找最短路径，反向寻找
+		vector<int> emptyVec;
+		path.push_back(target);
+		int curPoint = parent[target];
+		while (curPoint != index) {
+			if (curPoint == -1) return emptyVec;
+			path.push_back(curPoint);
+			curPoint = parent[curPoint];
+		}
+		path.push_back(curPoint);
+		reverse(path.begin(), path.end());
+		return path;
 	}
 public:
 	OspfRouter(int index) :Router(index) {
@@ -61,16 +151,16 @@ public:
 			if (updateLSA(recivedPacket)) {//Pass
 				//遍历邻接路由表来发送
 				for (auto it : contiguousRouters) {
-					this->sendBoradcastPacket(*indexToPoints[it], recivedPacket);
+					this->sendBoradcastPacket(indexToPoints[it], recivedPacket);
 				}
 				if (find(contiguousRouters.begin(), contiguousRouters.end(), recivedPacket.getSender()) 
 					== contiguousRouters.end()
-					&& find(indexToPoints.begin(),indexToPoints.end(),recivedPacket.getSender())!=indexToPoints.end()) {
+					&& indexToPoints.find(recivedPacket.getSender())!=indexToPoints.end()) {//**************************************
 					//创建回复包
 					AdList packetTosend = this->adList;
 					packetTosend.setSender(this->index);
 					//发送回复包
-					this->sendBoradcastPacket(*indexToPoints[recivedPacket.getSender()], packetTosend);
+					this->sendBoradcastPacket(indexToPoints[recivedPacket.getSender()], packetTosend);
 					//建立邻接关系
 					this->contiguousRouters.push_back(recivedPacket.getSender());
 				}

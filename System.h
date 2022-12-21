@@ -32,26 +32,30 @@ protected:
 			routers[i].initConnections(tempMap);
 		}
 	}
-	
+	void initAdList() {
+		for (auto& it : routers) {
+			it.initAdList();
+		}
+	}
 public:
 	System(vector<vector<int>> matrix) {
 		this->n = matrix.size();
 		this->matrix = matrix;
 		initRouters();
 		initConnections(matrix);
-		
+		initAdList();
 	}
 	//×èÈûÊ½
 	void tick() {
 		while (1) {
 			for (auto &it : routers) {
 				it.tick();
-				Sleep(50);
+				//Sleep();
 			}
 			
 		}
 	}
-	void givePacket(int routerIndex, Packet packet) {
+	void givePacket(int routerIndex, P packet) {
 		routers[routerIndex].setPacket(packet);
 	}
 };

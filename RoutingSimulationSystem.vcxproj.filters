@@ -29,9 +29,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BroadcastDevice.h">
-      <Filter>头文件\BaseClass</Filter>
-    </ClInclude>
     <ClInclude Include="Router.h">
       <Filter>头文件\BaseClass</Filter>
     </ClInclude>
