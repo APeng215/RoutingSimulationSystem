@@ -44,6 +44,21 @@ public:
 		heads[a] = temp;
 		return true;
 	}
+	//返回对应节点邻接点vec
+	vector<int> getNBlist(int key) {
+		return heads[key];
+	}
+	//返回adlist是否有这个节点的LSA
+	bool hasVertex(int vertex) {
+		auto it = heads.find(vertex);
+		if (it == heads.end()) return false;
+		else return true;
+	}
+	//返回最大的点的下标
+	int maxVertex() {
+		auto it = heads.rbegin();
+		return (*it).first;
+	}
 	void setHeads(map<int, vector<int>> heads) {
 		this->heads = heads;
 	}
@@ -55,6 +70,9 @@ public:
 	}
 	int getSender() const {
 		return this->sender;
+	}
+	int size() {
+		return heads.size();
 	}
 };
 

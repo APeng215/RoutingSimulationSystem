@@ -8,7 +8,8 @@
 #include<Windows.h>
 #include"BroadcastDevice.h"
 #include"LsaPacket.h"
-class OspfRouter:public Router<Packet>,public BroadcastDevice<AdList,Router<Packet>>{
+#include"PathPacket.h"
+class OspfRouter:public Router<PathPacket>,public BroadcastDevice<AdList,Router<PathPacket>>{
 protected:
 	//本路由储存的LSA
 	AdList adList;
@@ -29,7 +30,10 @@ protected:
 			this->sendBoradcastPacket(*it.second, LSAtoSend);
 		}
 	}
-	
+	//根据自己已知的AdList，找出最短路径
+	vector<int> Dijkstra(int target) {
+		//TODO
+	}
 public:
 	OspfRouter(int index) :Router(index) {
 		//伪随机设定起始timer
@@ -41,7 +45,7 @@ public:
 			cout << "错误:在初始化邻接表前请先初始化连接(initConnections)!" << endl;
 			return;
 		}
-		for (auto it : indexToPoints) {
+		for (auto &it : indexToPoints) {
 			this->adList.update(this->index, it.first);
 		}
 	}
@@ -79,8 +83,38 @@ public:
 			//周期发LSA包
 			periodicTransmission();
 		}
+		//如果接收到了包，先检查包目标是否是自己，如果不是再根据包路径发送，如果包不存在路径，要自己创建再发送
 		if (isIncludePacket) {
-
+			//如果目标是自己，说明包送达
+			if (this->getPacket().getTarget() == this->index) {
+				//输出结果
+				cout << index << ":包送达" << endl;
+				//销毁包
+				this->deletePacket();
+			}
+			//如果目标不是自己
+			else {
+				//copy包
+				PathPacket pathPacket = this->getPacket();
+				//如果包有路径，就按路径来发送
+				if (pathPacket.hasPath()) {
+					//获取目标
+					int target = pathPacket.getNextTarget(this->index);
+					//发包
+					this->sendPacket(target);
+				}
+				//如果包没有路径，需要自己计算
+				else {
+					//计算出path
+					vector<int> path = Dijkstra(pathPacket.getTarget());
+					//如果得到path，压入包
+					if (!path.empty()) {
+						pathPacket.setPath(path);
+						this->setPacket(pathPacket);
+					}
+				}
+			}
+			
 		}
 	}
 };

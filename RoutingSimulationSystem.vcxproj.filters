@@ -53,6 +53,9 @@
     <ClInclude Include="AdList.h">
       <Filter>头文件\OSPF</Filter>
     </ClInclude>
+    <ClInclude Include="PathPacket.h">
+      <Filter>头文件\OSPF</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">
