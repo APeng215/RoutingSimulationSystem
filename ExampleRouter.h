@@ -1,8 +1,7 @@
 #pragma once
 #include"Router.h"
-#include"BroadcastDevice.h"
 #include<random>
-class ExampleRouter:public Router<Packet>,public BroadcastDevice<int, Router<Packet>>{
+class ExampleRouter:public Router<Packet>{
 public:
 	ExampleRouter(int a) :Router(a) {}
 	void tick() override {

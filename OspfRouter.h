@@ -6,7 +6,6 @@
 #include"AdList.h"
 #include"Router.h"
 #include<Windows.h>
-#include"BroadcastDevice.h"
 #include"LsaPacket.h"
 #include"PathPacket.h"
 #include<set>
