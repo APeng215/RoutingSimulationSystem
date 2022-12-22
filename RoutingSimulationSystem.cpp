@@ -26,17 +26,9 @@ int main(){
     
     vector<vector<int>> matrix;
     readMatrix(matrix);
-    /*
-    System<ExampleRouter,Packet> system(matrix);
-    Packet packet;
-    system.givePacket(1, packet);
-    //system.tick();
-    AdList testAdList,testAdList2;
-    testAdList.update(1, 2);
-    testAdList.setSender(1);
-    if(testAdList2.update(testAdList))cout<<"list2更新!\n";
-    */
     System<OspfRouter, PathPacket> system(matrix);
+    system.printMatrix();
+    system.printLinkList();
     PathPacket packet;
     packet.setTarget(3);
     system.givePacket(0, packet);

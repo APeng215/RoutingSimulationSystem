@@ -38,9 +38,6 @@
     <ClInclude Include="System.h">
       <Filter>头文件\BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="LsaPacket.h">
-      <Filter>头文件\OSPF</Filter>
-    </ClInclude>
     <ClInclude Include="OspfRouter.h">
       <Filter>头文件\OSPF</Filter>
     </ClInclude>

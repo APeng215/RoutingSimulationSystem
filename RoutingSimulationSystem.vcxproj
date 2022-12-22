@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClInclude Include="AdList.h" />
     <ClInclude Include="ExampleRouter.h" />
-    <ClInclude Include="LsaPacket.h" />
     <ClInclude Include="OspfRouter.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PathPacket.h" />
