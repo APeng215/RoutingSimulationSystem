@@ -7,9 +7,14 @@
 #include<fstream>
 #include"OspfRouter.h"
 #include"PathPacket.h"
+#define DEBUG
 using namespace std;
 void readMatrix(vector<vector<int>>& matrix)
 {
+#ifdef DEBUG
+    cout << "从data.txt读取邻接矩阵...";
+#endif // DEBUG
+
     ifstream in("data.txt");
     int temp;
     vector<int> tempVec;
@@ -21,6 +26,10 @@ void readMatrix(vector<vector<int>>& matrix)
             tempVec.clear();
         }
     }
+#ifdef DEBUG
+    cout << endl;
+#endif // DEBUG
+
 }
 int main(){
     

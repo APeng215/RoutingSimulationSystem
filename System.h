@@ -5,6 +5,8 @@
 #include<map>
 #include"Router.h"
 #include<Windows.h>
+
+#define DEBUG
 //T为Router类，P为包类
 template <typename T,typename P>
 class System{
@@ -70,6 +72,10 @@ public:
 	}
 	void givePacket(int routerIndex, P packet) {
 		routers[routerIndex].setPacket(packet);
+#ifdef DEBUG
+		cout << "将包提供给" << routerIndex << endl;
+#endif // DEBUG
+
 	}
 	//打印邻接矩阵
 	void printMatrix() const {
