@@ -70,6 +70,15 @@ public:
 			
 		}
 	}
+	//tick n´Î
+	void tick(int n) {
+		while (n--) {
+			for (auto& it : routers) {
+				it.tick();
+				//Sleep();
+			}
+		}
+	}
 	void givePacket(int routerIndex, P packet) {
 		routers[routerIndex].setPacket(packet);
 #ifdef DEBUG

@@ -39,6 +39,7 @@ int main(){
     system.printMatrix();
     system.printLinkList();
     PathPacket packet;
+    system.tick(600);
     packet.setTarget(3);
     system.givePacket(0, packet);
     system.tick();
