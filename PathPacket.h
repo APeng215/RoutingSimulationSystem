@@ -22,7 +22,7 @@ public:
 		}
 		//»ñÈ¡
 		auto it = find(this->path.begin(), this->path.end(), current);
-		return ++(*it);
+		return *++it;
 	}
 };
 
