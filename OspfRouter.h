@@ -9,12 +9,11 @@
 #include"LsaPacket.h"
 #include"PathPacket.h"
 #include<set>
+#include<queue>
 class OspfRouter:public Router<PathPacket>{
 protected:
 	//用于存储收到的广播包
-	AdList recivedPacket;
-	//表示邮箱中是否有未解读的广播包
-	bool isIncludeRecivedPacket = false;
+	queue<AdList> recivedPacket;
 
 
 	//本路由储存的LSA
@@ -23,18 +22,17 @@ protected:
 
 	//**********************************************************************************************************
 	void recivePacket(AdList packetToRecive) override {
-		recivedPacket = packetToRecive;
-		isIncludeRecivedPacket = true;
+		recivedPacket.push(packetToRecive);
 	}
 
 	//返回邮箱中是否有未解读的广播包
 	bool hasRecivedPacket() {
-		return isIncludeRecivedPacket;
+		return !recivedPacket.empty();
 	}
 	//返回广播包，使用前请检查
 	AdList getRecivedPacket() {
-		if (isIncludeRecivedPacket) {
-			return recivedPacket;
+		if (hasRecivedPacket()) {
+			return recivedPacket.front();
 		}
 		else {
 			cout << "警告:并不含有recivePacket!请在get前检查!\n";
@@ -47,7 +45,7 @@ protected:
 	}
 	//销毁广播包
 	void deleteRecivedPacket() {
-		isIncludeRecivedPacket = false;
+		recivedPacket.pop();
 	}
 	//************************************************************************************************************
 	//更新LSA，返回是否更新后的LAS是否有所变化
@@ -142,7 +140,7 @@ public:
 		//计数器增加
 		timer = (timer + 1) % 100000;
 		//如果邮箱中有LSA包
-		if (hasRecivedPacket()) {
+		while (hasRecivedPacket()) {
 			//copy接收到的LSA包
 			AdList recivedPacket = getRecivedPacket();
 			//尝试用LSA包更新自己的包。如果更新了，要继续传递包给其有邻接关系的路由器；否则不传递。
