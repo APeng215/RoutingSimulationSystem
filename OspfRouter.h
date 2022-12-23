@@ -180,10 +180,18 @@ public:
 			}
 			//如果目标不是自己
 			else {
+#ifdef DEBUG
+				cout << index << ":接收到包，但目标不是自己" << endl;
+#endif // DEBUG
+
 				//copy包
 				PathPacket pathPacket = this->getPacket();
 				//如果包有路径，就按路径来发送
 				if (pathPacket.hasPath()) {
+#ifdef DEBUG
+					cout << index << ":解析包内路径..." << endl;
+#endif // DEBUG
+
 					//获取目标
 					int target = pathPacket.getNextTarget(this->index);
 					//发包
@@ -191,10 +199,18 @@ public:
 				}
 				//如果包没有路径，需要自己计算
 				else {
+#ifdef DEBUG
+					cout << index << ":包内没有路径，尝试自己计算" << endl;
+#endif // DEBUG
+
 					//计算出path
 					vector<int> path = Dijkstra(pathPacket.getTarget());
 					//如果得到path，压入包
 					if (!path.empty()) {
+#ifdef DEBUG
+						cout << index << ":路径计算成功！压入包" << endl;
+#endif // DEBUG
+
 						pathPacket.setPath(path);
 						this->setPacket(pathPacket);
 					}
