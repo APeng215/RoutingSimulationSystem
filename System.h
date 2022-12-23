@@ -6,7 +6,7 @@
 #include"Router.h"
 #include<Windows.h>
 
-#define DEBUG
+
 //T为Router类，P为包类
 template <typename T,typename P>
 class System{

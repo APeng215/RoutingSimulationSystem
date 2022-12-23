@@ -1,4 +1,5 @@
-﻿#include"Packet.h"
+﻿#define DEBUG
+#include"Packet.h"
 #include"Router.h"
 #include"System.h"
 #include"ExampleRouter.h"
@@ -7,7 +8,7 @@
 #include<fstream>
 #include"OspfRouter.h"
 #include"PathPacket.h"
-#define DEBUG
+
 using namespace std;
 void readMatrix(vector<vector<int>>& matrix)
 {
